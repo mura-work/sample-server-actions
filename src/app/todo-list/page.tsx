@@ -2,7 +2,6 @@
 
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
-  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -18,7 +17,7 @@ import {
   Tr,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type TodoStatusType = "todo" | "inProgress" | "done";
 
 type TodoFormType = {
@@ -73,6 +72,11 @@ const convertedStatusBadge = (status: string): JSX.Element => {
 export default function TodoListPage(): JSX.Element {
   const [todoList, setTodoList] = useState<TodoType[]>([]);
   const [todoForm, setTodoForm] = useState<TodoFormType>(defaultFormValue);
+
+  useEffect(() => {
+    // 暫定対応
+    setTodoList([]);
+  }, []);
 
   const registerTodo = (): void => {};
 
@@ -139,7 +143,7 @@ export default function TodoListPage(): JSX.Element {
                       (prev): TodoFormType => ({
                         ...prev,
                         status: e.target.value as TodoStatusType,
-                      })
+                      }),
                     )
                   }
                 >
