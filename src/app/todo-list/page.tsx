@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
@@ -18,6 +18,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { fetchTodoLists } from "./todo-list-fooks";
+
 type TodoStatusType = "todo" | "inProgress" | "done";
 
 type TodoFormType = {
@@ -75,7 +77,12 @@ export default function TodoListPage(): JSX.Element {
 
   useEffect(() => {
     // 暫定対応
-    setTodoList([]);
+    const init = async (): Promise<void> => {
+      const lists = await fetchTodoLists();
+      console.log(lists)
+      setTodoList([]);
+    };
+    init();
   }, []);
 
   const registerTodo = (): void => {};
@@ -155,9 +162,9 @@ export default function TodoListPage(): JSX.Element {
               <Button
                 className="mb-4 mt-8 w-80"
                 bg="mainColor"
-                color="white"
+                color="blue"
                 _hover={{ color: "", borderColor: "" }}
-                onClick={registerTodo}
+                onClick={fetchTodoLists}
               >
                 登録
               </Button>
